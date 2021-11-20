@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,7 +6,8 @@ import {
   ScrollView,
   useWindowDimensions,
   SafeAreaView,
-  Pressable
+  Pressable,
+  BackHandler
 } from "react-native";
 
 import StoryItem from "./StoryItem";
@@ -16,6 +17,20 @@ export default function Stories({ item, onScrollEnd, onCancel }) {
   const [index, setindex] = useState(0);
   const scroll = useRef();
   const { width: size } = useWindowDimensions();
+
+  useEffect(() => {
+    const backAction = () => {
+      onCancel();
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
   const onScroll = (event) => {
     const i = event.nativeEvent.contentOffset.x / size;
