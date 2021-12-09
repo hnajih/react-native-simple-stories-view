@@ -9,11 +9,18 @@ import {
 } from "react-native";
 
 import UserCard from "./UserCard";
+import { useProps } from "./Context";
 
 export default function Header({ data, onPress }) {
-  const renderItem = ({ item, index }) => (
-    <UserCard user={item} index={index} onPress={onPress} />
-  );
+  const { renderHeaderItem } = useProps();
+  const renderItem = ({ item: user, index }) => {
+    const read = !user.stories.find((s) => !s.read);
+    return renderHeaderItem ? (
+      renderHeaderItem({ user, read, show: onPress })
+    ) : (
+      <UserCard user={user} read={read} index={index} onPress={onPress} />
+    );
+  };
 
   return (
     <SafeAreaView style={{ backgroundColor: "#eee" }}>

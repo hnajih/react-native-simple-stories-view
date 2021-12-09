@@ -8,8 +8,14 @@ import {
   TouchableOpacity
 } from "react-native";
 
-export default function UserCard({ user, index, size = 80, onPress }) {
-  const unread = user.stories ? user.stories.find((s) => !s.read) : false;
+export default function UserCard({
+  user,
+  index,
+  size = 80,
+  read = false,
+  onPress
+}) {
+  // const unread = user.stories ? user.stories.find((s) => !s.read) : false;
   return (
     <TouchableOpacity
       style={{ padding: 3, alignItems: "center" }}
@@ -24,7 +30,7 @@ export default function UserCard({ user, index, size = 80, onPress }) {
           margin: 2,
           backgroundColor: user.color || "gray",
           borderWidth: 2,
-          borderColor: unread ? "blue" : "gray"
+          borderColor: read ? "gray" : "blue"
         }}
       />
       <Text>{user.name}</Text>

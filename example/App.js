@@ -9,7 +9,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Platform, Pressable, StyleSheet, Text, View, Image} from 'react-native';
 import SimpleStoriesView from 'react-native-simple-stories-view';
 
 const users = [
@@ -79,6 +79,25 @@ export default class App extends Component<{}> {
                 <View style={{height: 20}} />
                 <Text>{JSON.stringify(user)}</Text>
               </View>
+            </Pressable>
+          )}
+          renderHeaderItem={({user,read, show}, index) => (
+            <Pressable
+              style={{padding: 3, alignItems: 'center'}}
+              onPress={show}>
+              <Image
+                source={{uri: user.avatar}}
+                style={{
+                  width: 100,
+                  height: 100,
+                  borderRadius: 100,
+                  margin: 2,
+                  backgroundColor: user.color || 'gray',
+                  borderWidth: 2,
+                  borderColor: read ? 'gray' : 'blue',
+                }}
+              />
+              {/* <Text>{user.name}</Text> */}
             </Pressable>
           )}
         />
