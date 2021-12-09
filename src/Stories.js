@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import {
   View,
   Text,
@@ -7,38 +7,55 @@ import {
   useWindowDimensions,
   SafeAreaView,
   Pressable,
-  BackHandler
+  BackHandler,
+  Animated
 } from "react-native";
-
+import ProgressView from "./ProgressView";
 import StoryItem from "./StoryItem";
+import { useProps } from "./Context";
 
 export default function Stories({ item, onScrollEnd, onCancel }) {
   const { stories: data, ...user } = item;
   const [index, setindex] = useState(0);
+  // const [index, setindex] = useState(data.findIndex((s) => !s.read) || 0);
   const scroll = useRef();
   const { width: size } = useWindowDimensions();
+  const progressAnim = useRef(new Animated.Value(0)).current;
+  const { renderStoryItem, activeProgressColor, inactiveProgressColor } =
+    useProps();
 
-  useEffect(() => {
-    const backAction = () => {
-      onCancel();
-      return true;
-    };
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     console.log(index);
+  //     scroll.current.scrollTo({ x: index * size });
+  //   }, 1000);
+  // }, []);
 
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
+  // useEffect(() => {
+  //   const backAction = () => {
+  //     onCancel();
+  //     return true;
+  //   };
 
-    return () => backHandler.remove();
-  }, []);
+  //   const backHandler = BackHandler.addEventListener(
+  //     "hardwareBackPress",
+  //     backAction
+  //   );
+
+  //   return () => backHandler.remove();
+  // }, []);
 
   const onScroll = (event) => {
     const i = event.nativeEvent.contentOffset.x / size;
-    setindex(i);
+    setindex(Math.round(i));
   };
 
   const next = (event) => {
-    const i = event.nativeEvent.locationX > size / 2 ? index + 1 : index - 1;
+    const i = event
+      ? event.nativeEvent.locationX > size / 2
+        ? index + 1
+        : index - 1
+      : index + 1;
     if (i < data.length && i >= 0) {
       setindex(i);
       scroll.current.scrollTo({ x: i * size });
@@ -49,15 +66,7 @@ export default function Stories({ item, onScrollEnd, onCancel }) {
   };
 
   return (
-    <Modal
-      visible
-      animationType={"slide"}
-      // transparent={true}
-      onRequestClose={() => {
-        Alert.alert("Modal has been closed.");
-        this.setModalVisible(!modalVisible);
-      }}
-    >
+    <Modal visible animationType={"slide"}>
       <ScrollView
         ref={scroll}
         horizontal
@@ -70,15 +79,19 @@ export default function Stories({ item, onScrollEnd, onCancel }) {
         indicatorStyle={"black"}
         onScroll={onScroll}
       >
-        {data.map((story, index) => (
-          <StoryItem
-            key={index}
-            story={story}
-            user={user}
-            width={size}
-            onPress={next}
-          />
-        ))}
+        {data.map((story, index) =>
+          renderStoryItem ? (
+            renderStoryItem({ story, user, next }, index)
+          ) : (
+            <StoryItem
+              key={index}
+              story={story}
+              user={user}
+              width={size}
+              onPress={next}
+            />
+          )
+        )}
       </ScrollView>
 
       <SafeAreaView style={{ position: "absolute", width: size }}>
@@ -89,10 +102,18 @@ export default function Stories({ item, onScrollEnd, onCancel }) {
               style={{
                 flex: 1,
                 height: 5,
-                backgroundColor: `#${i == index ? "000" : "fff"}7`,
+                backgroundColor:
+                  i < index ? activeProgressColor : inactiveProgressColor,
                 margin: 4
               }}
-            />
+            >
+              {i == index && (
+                <ProgressView
+                  color={activeProgressColor}
+                  onAnimationCompleted={() => next()}
+                />
+              )}
+            </View>
           ))}
         </View>
         <Pressable

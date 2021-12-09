@@ -9,17 +9,79 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, Pressable, StyleSheet, Text, View} from 'react-native';
 import SimpleStoriesView from 'react-native-simple-stories-view';
+
+const users = [
+  {
+    _id: 1,
+    name: 'React Native',
+    avatar: 'https://placeimg.com/140/140/any',
+    stories: [
+      {
+        type: 'text',
+        backgroundColor: 'red',
+        read: true,
+        content:
+          'Nulla nulla officia duis sit labore amet ea officia deserunt.',
+      },
+      {
+        type: 'text',
+        backgroundColor: 'green',
+        read: true,
+        content: 'Occaecat ipsum do laborum eiusmod anim.',
+      },
+    ],
+  },
+  {
+    _id: 2,
+    name: 'React',
+    avatar: 'https://placeimg.com/140/140/any',
+    color: 'blue',
+    stories: [
+      {
+        type: 'text',
+        backgroundColor: 'gray',
+        fontSize: 30,
+        read: true,
+        content:
+          'Nulla nulla officia duis sit labore amet ea officia deserunt.',
+      },
+      {
+        type: 'text',
+        read: false,
+        content: 'Occaecat ipsum do laborum eiusmod anim.',
+      },
+    ],
+  },
+];
 
 export default class App extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-        {/* <Text style={styles.welcome}>☆SimpleStoriesView example☆</Text>
-        <Text style={styles.instructions}>STATUS: loaded</Text>
-        <Text style={styles.welcome}>☆☆☆</Text> */}
-        <SimpleStoriesView />
+        <SimpleStoriesView
+          data={users}
+          storyDuration={2000}
+          activeProgressColor={'blue'}
+          inactiveProgressColor={'gray'}
+          renderStoryItem={({story, user, next}, index) => (
+            <Pressable onPress={next}>
+              <View
+                key={index}
+                style={{
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  alignContent: 'center',
+                }}>
+                <Text>{JSON.stringify(story)}</Text>
+                <View style={{height: 20}} />
+                <Text>{JSON.stringify(user)}</Text>
+              </View>
+            </Pressable>
+          )}
+        />
       </View>
     );
   }
