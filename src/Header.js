@@ -18,7 +18,7 @@ export default function Header({ data, onPress }) {
     return renderHeaderItem ? (
       renderHeaderItem({ user, read, show: onPress })
     ) : (
-      <UserCard user={user} read={read} index={index} onPress={onPress} />
+      <UserCard pressable user={user} read={read} index={index} onPress={onPress} />
     );
   };
 

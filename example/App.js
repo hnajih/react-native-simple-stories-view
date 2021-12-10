@@ -20,7 +20,6 @@ const users = [
     stories: [
       {
         type: 'text',
-        backgroundColor: 'red',
         read: true,
         content:
           'Nulla nulla officia duis sit labore amet ea officia deserunt.',
@@ -37,11 +36,10 @@ const users = [
     _id: 2,
     name: 'React',
     avatar: 'https://placeimg.com/140/140/any',
-    color: 'blue',
+    color: 'aquamarine',
     stories: [
       {
         type: 'text',
-        backgroundColor: 'gray',
         fontSize: 30,
         read: true,
         content:
@@ -65,41 +63,44 @@ export default class App extends Component<{}> {
           storyDuration={2000}
           activeProgressColor={'blue'}
           inactiveProgressColor={'gray'}
-          renderStoryItem={({story, user, next}, index) => (
-            <Pressable onPress={next}>
-              <View
-                key={index}
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  alignContent: 'center',
-                }}>
-                <Text>{JSON.stringify(story)}</Text>
-                <View style={{height: 20}} />
-                <Text>{JSON.stringify(user)}</Text>
-              </View>
-            </Pressable>
-          )}
-          renderHeaderItem={({user,read, show}, index) => (
-            <Pressable
-              style={{padding: 3, alignItems: 'center'}}
-              onPress={show}>
-              <Image
-                source={{uri: user.avatar}}
-                style={{
-                  width: 100,
-                  height: 100,
-                  borderRadius: 100,
-                  margin: 2,
-                  backgroundColor: user.color || 'gray',
-                  borderWidth: 2,
-                  borderColor: read ? 'gray' : 'blue',
-                }}
-              />
-              {/* <Text>{user.name}</Text> */}
-            </Pressable>
-          )}
+          renderAvatar={'top'}
+          storyBackground={'cyan'}
+          storyTextStyle={{color: 'red'}}
+          // renderStoryItem={({story, user, next}, index) => (
+          //   <Pressable onPress={next}>
+          //     <View
+          //       key={index}
+          //       style={{
+          //         flex: 1,
+          //         justifyContent: 'center',
+          //         alignItems: 'center',
+          //         alignContent: 'center',
+          //       }}>
+          //       <Text>{JSON.stringify(story)}</Text>
+          //       <View style={{height: 20}} />
+          //       <Text>{JSON.stringify(user)}</Text>
+          //     </View>
+          //   </Pressable>
+          // )}
+          // renderHeaderItem={({user,read, show}, index) => (
+          //   <Pressable
+          //     style={{padding: 3, alignItems: 'center'}}
+          //     onPress={show}>
+          //     <Image
+          //       source={{uri: user.avatar}}
+          //       style={{
+          //         width: 100,
+          //         height: 100,
+          //         borderRadius: 100,
+          //         margin: 2,
+          //         backgroundColor: user.color || 'gray',
+          //         borderWidth: 2,
+          //         borderColor: read ? 'gray' : 'blue',
+          //       }}
+          //     />
+          //     <Text>{user.name}</Text>
+          //   </Pressable>
+          // )}
         />
       </View>
     );
