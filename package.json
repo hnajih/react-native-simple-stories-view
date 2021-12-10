@@ -1,7 +1,7 @@
 {
   "name": "react-native-simple-stories-view",
   "title": "React Native Simple Stories View",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TODO",
   "main": "index.js",
   "files": [
@@ -9,7 +9,8 @@
     "android",
     "index.js",
     "ios",
-    "react-native-simple-stories-view.podspec"
+    "react-native-simple-stories-view.podspec",
+    "src/*"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
