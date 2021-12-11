@@ -17,15 +17,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/github_account/react-native-simple-stories-view.git",
-    "baseUrl": "https://github.com/github_account/react-native-simple-stories-view"
+    "url": "git+https://github.com/hnajih/react-native-simple-stories-view.git",
+    "baseUrl": "https://github.com/hnajih/react-native-simple-stories-view"
   },
   "keywords": [
     "react-native"
   ],
   "author": {
-    "name": "Your Name",
-    "email": "yourname@email.com"
+    "name": "hamza",
+    "email": "hamza@jsfactory.com"
   },
   "license": "MIT",
   "licenseFilename": "LICENSE",
