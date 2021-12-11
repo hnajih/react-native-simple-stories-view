@@ -21,8 +21,11 @@ export default function Stories({ item, onScrollEnd, onCancel }) {
   const scroll = useRef();
   const { width: size } = useWindowDimensions();
   const progressAnim = useRef(new Animated.Value(0)).current;
-  const { renderStoryItem, activeProgressColor, inactiveProgressColor } =
-    useProps();
+  const {
+    renderStoryItem,
+    activeProgressColor = "black",
+    inactiveProgressColor = "gray"
+  } = useProps();
 
   // useEffect(() => {
   //   setTimeout(() => {
