@@ -8,6 +8,10 @@
 
 `$ react-native link react-native-simple-stories-view`
 
+## Demo
+
+![Demo](https://s10.gifyu.com/images/ezgif-7-a8789811cb.gif)
+
 ## Usage
 
 ```javascript
